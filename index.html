@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Countdown</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  /*
+  This CSS resource incorporates links to font software which is the valuable copyrighted
+  property of Monotype and/or its suppliers. You may not attempt to copy, install,
+  redistribute, convert, modify or reverse engineer this font software. Please contact Monotype
+  with any questions regarding Web Fonts:  http://www.linotype.com
+  */
+  @font-face {
+      font-family: "FrutigerLTW04";
+      src: url("https://worldskills.org/application/themes/worldskills_org/fonts/1572255/3c1542d6-dbb8-4bb3-85e5-730bbf131fcc.eot?#iefix");
+      src: url("https://worldskills.org/application/themes/worldskills_org/fonts/1572255/3c1542d6-dbb8-4bb3-85e5-730bbf131fcc.eot?#iefix") format("eot"), url("https://worldskills.org/application/themes/worldskills_org/fonts/1572255/61381871-0847-435e-9498-63b7c3d9c071.woff2") format("woff2"), url("https://worldskills.org/application/themes/worldskills_org/fonts/1572255/b33c9c65-2311-4db9-a364-ae857e998b70.woff") format("woff"), url("https://worldskills.org/application/themes/worldskills_org/fonts/1572255/72290e69-f361-42ef-adc2-ed908eb88cb5.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
+  }
+
+  body {
+    background-color: #0084AD;
+    color: #fff;
+    font-family: "FrutigerLTW04", Frutiger, Arial, sans-serif;
+  }
+  
+  #time {
+    font-size: 10rem;
+  }
+  </style>
+</head>
+<body>
+
+  <div id="time">00:00</div>
+
+  <script>
+
+    var i = 0;
+    var target = window.location.search.substr(1);
+
+    setInterval(function () {
+
+      if (target) {
+        i = Date.parse(target) - Date.now();
+        i = Math.floor(i / 1000);
+        if (i < 0) {
+          i = 0;
+        }
+      } else {
+        i += 1;
+      }
+
+      var hours = Math.floor(i / 3600);
+      var minutes = '0' + Math.floor(i % 3600 / 60);
+      var seconds = '0' + (i % 60);
+
+      var text = '';
+      if (hours > 0) {
+        text += hours;
+        text += ':';
+      }
+      text += minutes.substr(-2);
+      text += ':';
+      text += seconds.substr(-2);
+
+      document.getElementById('time').innerText = text;
+
+    }, 1000);
+
+  </script>
+
+</body>
+</html>
