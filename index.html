@@ -35,6 +35,7 @@
     color: #fff;
     font-family: "FrutigerLTW04", Frutiger, Arial, sans-serif;
     font-size: 1rem;
+    user-select: none;
   }
 
   #title {
@@ -101,6 +102,10 @@
       document.getElementById('time').innerText = text;
 
     }, 1000);
+
+    document.addEventListener('dblclick', function () {
+      document.documentElement.webkitRequestFullScreen();
+    });
 
   </script>
 
