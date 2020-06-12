@@ -31,27 +31,32 @@
   }
 
   body {
-    background-color: #0084AD;
+    background-color: #000;
     color: #fff;
     font-family: "FrutigerLTW04", Frutiger, Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 2vw;
     user-select: none;
+    margin: 5vw 3vw;
   }
 
   #title {
     font-family: "Inria Serif", serif;
     font-weight: bold;
-    font-size: 5rem;
+    font-size: 6vw;
+    margin-top: 18vw;
+    margin-bottom: 4vw;
   }
 
   #time {
-    font-size: 9rem;
+    font-size: 10vw;
   }
   </style>
 </head>
 <body>
 
-  <div id="title">WorldSkills</div>
+  <div id="title"></div>
+
+  <div id="starts"></div>
 
   <div id="time">00:00</div>
 
@@ -60,7 +65,9 @@
     var i = 0;
     var query = {};
     query.time = '';
-    query.title = '';
+    query.title = 'WorldSkills';
+    query.starts = 'starts in';
+    query.soon = 'starts soon';
     var search = window.location.search.substring(1);
     var vars = search.split('&');
     for (var i = 0; i < vars.length; i++) {
@@ -70,36 +77,38 @@
         query[key] = value;
     }
 
-    if (query.title) {
-      document.getElementById('title').innerText = query.title;
-    }
+    document.getElementById('title').innerText = query.title;
+    document.getElementById('starts').innerText = query.starts;
 
     setInterval(function () {
 
       if (query.time) {
         i = Date.parse(query.time) - Date.now();
         i = Math.floor(i / 1000);
-        if (i < 0) {
-          i = 0;
-        }
       } else {
         i += 1;
       }
 
-      var hours = Math.floor(i / 3600);
-      var minutes = '0' + Math.floor(i % 3600 / 60);
-      var seconds = '0' + (i % 60);
+      if (i > 0) {
 
-      var text = '';
-      if (hours > 0) {
-        text += hours;
+        var hours = Math.floor(i / 3600);
+        var minutes = '0' + Math.floor(i % 3600 / 60);
+        var seconds = '0' + (i % 60);
+
+        var text = '';
+        if (hours > 0) {
+          text += hours;
+          text += ':';
+        }
+        text += minutes.substr(-2);
         text += ':';
-      }
-      text += minutes.substr(-2);
-      text += ':';
-      text += seconds.substr(-2);
+        text += seconds.substr(-2);
 
-      document.getElementById('time').innerText = text;
+        document.getElementById('time').innerText = text;
+      } else {
+        document.getElementById('starts').innerText = query.soon;
+        document.getElementById('time').innerText = '';
+      }
 
     }, 1000);
 
